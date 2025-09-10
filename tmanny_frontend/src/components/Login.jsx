@@ -24,46 +24,54 @@ const Login = ({ switchToRegister }) => {
   };
 
   return (
-    <div className="auth-container">
-      <form onSubmit={handleSubmit} className="auth-form">
+    <article>
+      <header>
         <h2>Login</h2>
+      </header>
+      
+      <form onSubmit={handleSubmit}>
+        {error && (
+          <div style={{ color: 'var(--pico-color-red-500)', marginBottom: '1rem' }}>
+            {error}
+          </div>
+        )}
         
-        {error && <div className="error-message">{error}</div>}
-        
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
+        <fieldset>
+          <label>
+            Email
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </label>
+          
+          <label>
+            Password
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </label>
+        </fieldset>
 
-        <div className="form-group">
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-
-        <button type="submit" disabled={loading}>
+        <button type="submit" aria-busy={loading}>
           {loading ? 'Logging in...' : 'Login'}
         </button>
+      </form>
 
+      <footer>
         <p>
           Don't have an account?{' '}
-          <button type="button" onClick={switchToRegister} className="link-button">
+          <a href="#" onClick={(e) => { e.preventDefault(); switchToRegister(); }}>
             Sign up
-          </button>
+          </a>
         </p>
-      </form>
-    </div>
+      </footer>
+    </article>
   );
 };
 
